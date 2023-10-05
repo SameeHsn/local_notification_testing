@@ -172,7 +172,8 @@ public class ScheduledNotificationReceiver extends BroadcastReceiver {
         isBatteryOptimizationEnabled="False";
       }
 
-      getDebugValue(FLUTTER_IS_DEBUG_MODE_KEY);
+      boolean isDebugModeEnable = getDebugValue(FLUTTER_IS_DEBUG_MODE_KEY);
+      Log.d("isDebugModeEnable:", String.valueOf(isDebugModeEnable));
         String baseString=  "currentDateTime: " + formattedCurrentDateTime.toString() +" ,scheduledDateTime: " + formatedSchedualDateTime + " ,isPowerSavingModeOn: " +isPowerSavingModeOn.toString() + " ,isDoNotDisturbOn: " +isDoNotDisturbOn.toString() +" ,isBatteryOptimizationEnabled: " + isBatteryOptimizationEnabled.toString() +" ,noitification_title: " + notificationDetails.title.toString();
       if (inSeconds>20) {
          Log.d("---------------result:","Delayed Notification");
@@ -235,9 +236,10 @@ public class ScheduledNotificationReceiver extends BroadcastReceiver {
     String result=preferences.getString(key,"");
      Log.d("result is:", result);
   }
-  public static void getDebugValue(String key) {
+  public static boolean getDebugValue(String key) {
     boolean result=preferences.getBoolean(key,false);
-    Log.d("result is:", String.valueOf(result));
+//    Log.d("result is:", String.valueOf(result));
+    return result;
   }
   
   public static void getKeys(Context context) {
