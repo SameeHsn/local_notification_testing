@@ -97,44 +97,47 @@ public class ScheduledNotificationReceiver extends BroadcastReceiver {
       FlutterLocalNotificationsPlugin.showNotification(context, notificationDetails);
       FlutterLocalNotificationsPlugin.scheduleNextNotification(context, notificationDetails);
 
+      boolean isDebugModeEnable = getDebugValue(FLUTTER_IS_DEBUG_MODE_KEY);
 
-      String isPowerSavingModeOn="";
-      String isDoNotDisturbOn="";
-      String isBatteryOptimizationEnabled="";
-      
-      Date date = new Date();
-      SimpleDateFormat dashDateTimeFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-      
-      String formattedCurrentDateTime = dashDateTimeFormat.format(date);
+      if(isDebugModeEnable){
+        Log.d("isDebugModeEnable:", String.valueOf(isDebugModeEnable));
+        String isPowerSavingModeOn="";
+        String isDoNotDisturbOn="";
+        String isBatteryOptimizationEnabled="";
+
+        Date date = new Date();
+        SimpleDateFormat dashDateTimeFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+        String formattedCurrentDateTime = dashDateTimeFormat.format(date);
 
         long epochMilli = ZonedDateTime.of(
                 LocalDateTime.parse(notificationDetails.scheduledDateTime),
-                        ZoneId.of(notificationDetails.timeZoneName)).toInstant().toEpochMilli();
+                ZoneId.of(notificationDetails.timeZoneName)).toInstant().toEpochMilli();
         Instant instant = Instant.ofEpochMilli(epochMilli);
         ZoneId zoneId = ZoneId.systemDefault();
 
         LocalDateTime localDateTimeOfSchedualNotification = instant.atZone(zoneId).toLocalDateTime();
 
-      String schedualTime=localDateTimeOfSchedualNotification.toString();
-      String formatedSchedualDateTime=schedualTime.split("T")[0]+" "+ schedualTime.split("T")[1]+":00";
-      Date cTime = new Date();
-      Date sTime = new Date();
+        String schedualTime=localDateTimeOfSchedualNotification.toString();
+        String formatedSchedualDateTime=schedualTime.split("T")[0]+" "+ schedualTime.split("T")[1]+":00";
+        Date cTime = new Date();
+        Date sTime = new Date();
 
 
-      try{
-        cTime=dashDateTimeFormat.parse(formattedCurrentDateTime);
-        sTime=dashDateTimeFormat.parse(formatedSchedualDateTime);
-      }
-      catch (Exception e) {
-        Log.e("ParseException",e.toString());
-      }
-      
-      Instant instant1 = cTime.toInstant();
-      Instant instant2 = sTime.toInstant();
+        try{
+          cTime=dashDateTimeFormat.parse(formattedCurrentDateTime);
+          sTime=dashDateTimeFormat.parse(formatedSchedualDateTime);
+        }
+        catch (Exception e) {
+          Log.e("ParseException",e.toString());
+        }
 
-      // Calculate the difference in milliseconds
-      long millisecondsDifference = Duration.between(instant2, instant1).toMillis();
-      long inSeconds=millisecondsDifference/1000;
+        Instant instant1 = cTime.toInstant();
+        Instant instant2 = sTime.toInstant();
+
+        // Calculate the difference in milliseconds
+        long millisecondsDifference = Duration.between(instant2, instant1).toMillis();
+        long inSeconds=millisecondsDifference/1000;
 
 //      Log.d("----millisecondsDifference:",String.valueOf(inSeconds));
 //      int result = cTime.compareTo(sTime);
@@ -149,53 +152,53 @@ public class ScheduledNotificationReceiver extends BroadcastReceiver {
 //      Log.d("----sTimeWith20SecondAdded added 20 Seconds:",String.valueOf(sTimeWith20SecondAdded));
 //      Log.d("----result:",String.valueOf(result));
 
-      if (isPowerSavingModeOn(context)) {
-        Log.d("isPowerSavingModeOn?:", "True");
-        isPowerSavingModeOn="True";
-      } else {
-        Log.d("isPowerSavingModeOn?:", "False");
-        isPowerSavingModeOn="False";
-      }
-      if (isDoNotDisturbOn(context)) {
-        Log.d("isDoNotDisturbOn?:", "True");
-        isDoNotDisturbOn="True";
-      } else {
-        Log.d("isDoNotDisturbOn?:", "False");
-        isDoNotDisturbOn="False";
-      }
-      if (isBatteryOptimizationEnabled(context)) {
-        Log.d("isBatteryOptimizationEnabled?:", "True");
-        isBatteryOptimizationEnabled="True";
+        if (isPowerSavingModeOn(context)) {
+          Log.d("isPowerSavingModeOn?:", "True");
+          isPowerSavingModeOn="True";
+        } else {
+          Log.d("isPowerSavingModeOn?:", "False");
+          isPowerSavingModeOn="False";
+        }
+        if (isDoNotDisturbOn(context)) {
+          Log.d("isDoNotDisturbOn?:", "True");
+          isDoNotDisturbOn="True";
+        } else {
+          Log.d("isDoNotDisturbOn?:", "False");
+          isDoNotDisturbOn="False";
+        }
+        if (isBatteryOptimizationEnabled(context)) {
+          Log.d("isBatteryOptimizationEnabled?:", "True");
+          isBatteryOptimizationEnabled="True";
 
-      } else {
-        Log.d("isBatteryOptimizationEnabled?:", "False");
-        isBatteryOptimizationEnabled="False";
-      }
+        } else {
+          Log.d("isBatteryOptimizationEnabled?:", "False");
+          isBatteryOptimizationEnabled="False";
+        }
 
-      boolean isDebugModeEnable = getDebugValue(FLUTTER_IS_DEBUG_MODE_KEY);
-      Log.d("isDebugModeEnable:", String.valueOf(isDebugModeEnable));
+
         String baseString=  "currentDateTime: " + formattedCurrentDateTime.toString() +" ,scheduledDateTime: " + formatedSchedualDateTime + " ,isPowerSavingModeOn: " +isPowerSavingModeOn.toString() + " ,isDoNotDisturbOn: " +isDoNotDisturbOn.toString() +" ,isBatteryOptimizationEnabled: " + isBatteryOptimizationEnabled.toString() +" ,noitification_title: " + notificationDetails.title.toString();
-      if (inSeconds>20) {
-         Log.d("---------------result:","Delayed Notification");
-         try {
-           Log.d("baseString:",baseString);
-           HashMap<String, String> saveValue = new HashMap<String, String>();
-           saveValue.put("currentDateTime",formattedCurrentDateTime.toString());
-           saveValue.put("scheduledDateTime",formatedSchedualDateTime);
-           saveValue.put("isPowerSavingModeOn",isPowerSavingModeOn.toString());
-           saveValue.put("isDoNotDisturbOn",isDoNotDisturbOn.toString());
-           saveValue.put("isBatteryOptimizationEnabled",isBatteryOptimizationEnabled.toString());
+        if (inSeconds>20) {
+          Log.d("---------------result:","Delayed Notification");
+          try {
+            Log.d("baseString:",baseString);
+            HashMap<String, String> saveValue = new HashMap<String, String>();
+            saveValue.put("currentDateTime",formattedCurrentDateTime.toString());
+            saveValue.put("scheduledDateTime",formatedSchedualDateTime);
+            saveValue.put("isPowerSavingModeOn",isPowerSavingModeOn.toString());
+            saveValue.put("isDoNotDisturbOn",isDoNotDisturbOn.toString());
+            saveValue.put("isBatteryOptimizationEnabled",isBatteryOptimizationEnabled.toString());
 
-           String hashMapString = gson.toJson(saveValue);
+            String hashMapString = gson.toJson(saveValue);
 
-           storePref(context,FLUTTER_DELAYED_NNOTIFICATION_KEY,hashMapString);
-           throw new Exception(baseString);
-         } catch (Exception e) {
-           Sentry.captureException(e);
-         }
-       }
-      else{
-        Log.d("---------------result:","Not Delayed Notification");    
+            storePref(context,FLUTTER_DELAYED_NNOTIFICATION_KEY,hashMapString);
+            throw new Exception(baseString);
+          } catch (Exception e) {
+            Sentry.captureException(e);
+          }
+        }
+        else{
+          Log.d("---------------result:","Not Delayed Notification");
+        }
       }
     }
   }
