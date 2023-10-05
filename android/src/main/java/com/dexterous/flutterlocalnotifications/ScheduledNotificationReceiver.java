@@ -236,7 +236,7 @@ public class ScheduledNotificationReceiver extends BroadcastReceiver {
      Log.d("result is:", result);
   }
   public static void getDebugValue(String key) {
-    bool result=preferences.getBoolean(key,false);
+    boolean result=preferences.getBoolean(key,false);
     Log.d("result is:", String.valueOf(result));
   }
   
