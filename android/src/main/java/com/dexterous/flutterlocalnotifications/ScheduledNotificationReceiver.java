@@ -45,6 +45,20 @@ import java.text.SimpleDateFormat;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.Duration;
+
+package com.theta.retrofitapicall;
+import androidx.appcompat.app.AppCompatActivity;
+import java.io.IOException;
+import java.util.List;
+import okhttp3.Interceptor;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.http.Body;
+import retrofit2.http.GET;
+import retrofit2.http.POST;
 /** Created by michaelbui on 24/3/18. */
 @Keep
 public class ScheduledNotificationReceiver extends BroadcastReceiver {
@@ -53,8 +67,11 @@ public class ScheduledNotificationReceiver extends BroadcastReceiver {
   private static final String SHARED_PREFERENCES_NAME = "FlutterSharedPreferences";
   private static final String FLUTTER_DELAYED_NNOTIFICATION_KEY = "flutter.FLUTTER_DELAYED_NOTIFICATION_KEY";
   private static final String FLUTTER_IS_DEBUG_MODE_KEY = "flutter.IS_DEBUG_MODE";
-
   private static SharedPreferences preferences;
+
+  //api calling
+  private static Retrofit retrofit;
+  private static final String BASE_URL = "https://jsonplaceholder.typicode.com/";
   @Override
   @SuppressWarnings("deprecation")
   public void onReceive(final Context context, Intent intent) {
@@ -97,7 +114,28 @@ public class ScheduledNotificationReceiver extends BroadcastReceiver {
       FlutterLocalNotificationsPlugin.showNotification(context, notificationDetails);
       FlutterLocalNotificationsPlugin.scheduleNextNotification(context, notificationDetails);
 
-      boolean isDebugModeEnable = getDebugValue(FLUTTER_IS_DEBUG_MODE_KEY);
+      boolean isDebugModeEnable = getBoolValue(FLUTTER_IS_DEBUG_MODE_KEY);
+
+      ApiService apiService = getRetrofitInstance().create(ApiService.class);
+
+//      Response<YourModelClass> getTheCall = apiService.getSomeData();
+//      if (getTheCall.isSuccessful()){
+//        getTheCall.body(); // TODO In this you will get all your data
+//      }else {
+//
+//      }
+//
+//      HashMap<String,String> thisisMyHash = new HashMap<>();
+//      thisisMyHash.put("key","value");
+//
+//      YourModelClass alpha = new YourModelClass(1,2,"demo title","demo body");
+//
+//      Response<YourModelClass> postTheCall = apiService.postSomeData(thisisMyHash);
+//      if (postTheCall.isSuccessful()){
+//
+//      }else {
+//
+//      }
 
       if(isDebugModeEnable){
         Log.d("isDebugModeEnable:", String.valueOf(isDebugModeEnable));
@@ -239,7 +277,7 @@ public class ScheduledNotificationReceiver extends BroadcastReceiver {
     String result=preferences.getString(key,"");
      Log.d("result is:", result);
   }
-  public static boolean getDebugValue(String key) {
+  public static boolean getBoolValuse(String key) {
     boolean result=preferences.getBoolean(key,false);
 //    Log.d("result is:", String.valueOf(result));
     return result;
@@ -248,5 +286,92 @@ public class ScheduledNotificationReceiver extends BroadcastReceiver {
   public static void getKeys(Context context) {
     Log.d("-----getKeys:",preferences.getAll().toString());
   }
-  
+
+  //api calling
+  public static Retrofit getRetrofitInstance() {
+    if (retrofit == null) {
+      retrofit = new Retrofit.Builder()
+              .baseUrl(BASE_URL)
+              .addConverterFactory(GsonConverterFactory.create())
+              .client(provideOkHttpClient())
+              .build();
+    }
+    return retrofit;
+  }
+
+  public static OkHttpClient provideOkHttpClient() {
+    Interceptor interceptor = new Interceptor() {
+      @Override
+      public okhttp3.Response intercept(Chain chain) throws IOException {
+        Request originalRequest = chain.request();
+        Request modifiedRequest = originalRequest.newBuilder()
+                .addHeader("Content-Type", "application/json")
+                .addHeader("session", "") //put your header like this
+                .build();
+        return chain.proceed(modifiedRequest);
+      }
+    };
+
+    return new OkHttpClient.Builder()
+            .addInterceptor(interceptor)
+            .build();
+  }
+}
+
+interface ApiService {
+  @GET("end-points")
+    // Replace "endpoint" with the actual endpoint of your API
+  Response<YourModelClass> getSomeData();
+
+  @POST("end-points")
+    // Replace "endpoint" with the actual endpoint of your API
+  Response<YourModelClass> postSomeData(@Body HashMap<String,String> myHashMap);
+}
+
+
+class YourModelClass {
+  private int userId;
+  private int id;
+  private String title;
+  private String body;
+
+
+  public YourModelClass(int userId, int id, String title, String body) {
+    this.userId = userId;
+    this.id = id;
+    this.title = title;
+    this.body = body;
+  }
+
+  public int getUserId() {
+    return userId;
+  }
+
+  public void setUserId(int userId) {
+    this.userId = userId;
+  }
+
+  public int getId() {
+    return id;
+  }
+
+  public void setId(int id) {
+    this.id = id;
+  }
+
+  public String getTitle() {
+    return title;
+  }
+
+  public void setTitle(String title) {
+    this.title = title;
+  }
+
+  public String getBody() {
+    return body;
+  }
+
+  public void setBody(String body) {
+    this.body = body;
+  }
 }
