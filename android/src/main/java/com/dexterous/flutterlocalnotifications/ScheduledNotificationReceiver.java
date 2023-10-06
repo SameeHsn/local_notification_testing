@@ -46,7 +46,6 @@ import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.Duration;
 
-import androidx.appcompat.app.AppCompatActivity;
 import java.io.IOException;
 import java.util.List;
 import okhttp3.Interceptor;
@@ -276,7 +275,7 @@ public class ScheduledNotificationReceiver extends BroadcastReceiver {
     String result=preferences.getString(key,"");
      Log.d("result is:", result);
   }
-  public static boolean getBoolValuse(String key) {
+  public static boolean getBoolValue(String key) {
     boolean result=preferences.getBoolean(key,false);
 //    Log.d("result is:", String.valueOf(result));
     return result;
