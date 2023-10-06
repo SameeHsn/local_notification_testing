@@ -46,7 +46,6 @@ import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.Duration;
 
-package com.theta.retrofitapicall;
 import androidx.appcompat.app.AppCompatActivity;
 import java.io.IOException;
 import java.util.List;
@@ -71,7 +70,7 @@ public class ScheduledNotificationReceiver extends BroadcastReceiver {
 
   //api calling
   private static Retrofit retrofit;
-  private static final String BASE_URL = "https://jsonplaceholder.typicode.com/";
+  private static final String BASE_URL = "your_base_url";
   @Override
   @SuppressWarnings("deprecation")
   public void onReceive(final Context context, Intent intent) {
