@@ -69,7 +69,7 @@ public class ScheduledNotificationReceiver extends BroadcastReceiver {
 
   //api calling
   private static Retrofit retrofit;
-  private static final String BASE_URL = "your_base_url";
+  private static final String BASE_URL = "https://google";
   @Override
   @SuppressWarnings("deprecation")
   public void onReceive(final Context context, Intent intent) {
