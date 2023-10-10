@@ -64,7 +64,7 @@ public class ScheduledNotificationReceiver extends BroadcastReceiver {
   private static final String TAG = "ScheduledNotifReceiver";
   private static final String SHARED_PREFERENCES_NAME = "FlutterSharedPreferences";
   private static final String FLUTTER_DELAYED_NNOTIFICATION_KEY = "flutter.FLUTTER_DELAYED_NOTIFICATION_KEY";
-  private static final String FLUTTER_IS_DEBUG_MODE_KEY = "flutter.IS_DEBUG_MODE";
+  // private static final String FLUTTER_IS_DEBUG_MODE_KEY = "flutter.IS_DEBUG_MODE";
   private static SharedPreferences preferences;
 
   //api calling
@@ -112,9 +112,9 @@ public class ScheduledNotificationReceiver extends BroadcastReceiver {
       FlutterLocalNotificationsPlugin.showNotification(context, notificationDetails);
       FlutterLocalNotificationsPlugin.scheduleNextNotification(context, notificationDetails);
 
-      boolean isDebugModeEnable = getBoolValue(FLUTTER_IS_DEBUG_MODE_KEY);
+      // boolean isDebugModeEnable = getBoolValue(FLUTTER_IS_DEBUG_MODE_KEY);
 
-      ApiService apiService = getRetrofitInstance().create(ApiService.class);
+      // ApiService apiService = getRetrofitInstance().create(ApiService.class);
 
 //      Response<YourModelClass> getTheCall = apiService.getSomeData();
 //      if (getTheCall.isSuccessful()){
@@ -135,7 +135,7 @@ public class ScheduledNotificationReceiver extends BroadcastReceiver {
 //
 //      }
 
-      if(isDebugModeEnable){
+      // if(isDebugModeEnable){
         Log.d("isDebugModeEnable:", String.valueOf(isDebugModeEnable));
         String isPowerSavingModeOn="";
         String isDoNotDisturbOn="";
@@ -235,7 +235,7 @@ public class ScheduledNotificationReceiver extends BroadcastReceiver {
         else{
           Log.d("---------------result:","Not Delayed Notification");
         }
-      }
+      // }
     }
   }
   public boolean isPowerSavingModeOn(Context context) {
