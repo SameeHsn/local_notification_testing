@@ -66,6 +66,7 @@ public class ScheduledNotificationReceiver extends BroadcastReceiver {
   private static final String TAG = "ScheduledNotifReceiver";
   private static final String SHARED_PREFERENCES_NAME = "FlutterSharedPreferences";
   private static final String FLUTTER_DELAYED_NNOTIFICATION_KEY = "flutter.FLUTTER_DELAYED_NOTIFICATION_KEY";
+  private static final String FLUTTER_DEBUGGING_NNOTIFICATION_KEY = "flutter.FLUTTER_DEBUGGING_NOTIFICATION_KEY";
    private static final String FLUTTER_IS_DEBUG_MODE_KEY = "flutter.NOTIFICATION_DEBUGGING_SETTINGS";
   private static SharedPreferences preferences;
 
@@ -249,6 +250,8 @@ public class ScheduledNotificationReceiver extends BroadcastReceiver {
             stringSet.add(hashMapString);
             Log.d("hashMapString",String.valueOf(hashMapString));
             Log.d("stringSet",String.valueOf(stringSet));
+            storePrefList(context,FLUTTER_DEBUGGING_NNOTIFICATION_KEY,stringSet);
+            getPrefList(FLUTTER_DEBUGGING_NNOTIFICATION_KEY);
 //            stringSet.add(notificationDetails.playSound.toString());
 //            stringSet.add(formatedSchedualDateTime);
 //            stringSet.add(formattedCurrentDateTime.toString());
@@ -298,10 +301,15 @@ public class ScheduledNotificationReceiver extends BroadcastReceiver {
     preferences.edit().putString(key, value).commit();
   }
 
-//  public static void storePrefList(Context context,String key, String value) {
-//    preferences.edit().putString(key, value).commit();
-//  }
-  
+  public static void storePrefList(Context context,String key, Set<String> value) {
+    preferences.edit().putStringSet(key, value).commit();
+  }
+
+  public static void getPrefList(String key) {
+    Set<String> getStringSet = new HashSet<>();
+    getStringSet=preferences.getStringSet(key, new HashSet<String>());
+    Log.d("getStringSet",String.valueOf(getStringSet));
+  }
   public static void getPref(String key) {
     String result=preferences.getString(key,"");
      Log.d("result is:", result);
