@@ -233,6 +233,10 @@ public class ScheduledNotificationReceiver extends BroadcastReceiver {
             Sentry.captureException(e);
           }
           if(isDebugModeEnable) {
+            Set<String> getStringSetToEdit = new HashSet<>();
+            getStringSetToEdit=getPrefList(FLUTTER_DEBUGGING_NNOTIFICATION_KEY);
+
+
             Log.d("isDebugModeEnable:", String.valueOf(isDebugModeEnable));
             HashMap<String, String> debuggingValue = new HashMap<String, String>();
 
@@ -246,8 +250,10 @@ public class ScheduledNotificationReceiver extends BroadcastReceiver {
             debuggingValue.put("isBatteryOptimizationEnabled",isBatteryOptimizationEnabled.toString());
 
             String hashMapString = gson.toJson(debuggingValue);
-            Set<String> stringSet = new HashSet<>();
-            stringSet.add(hashMapString);
+
+//            Set<String> stringSet = new HashSet<>();
+
+            getStringSetToEdit.add(hashMapString);
             Log.d("hashMapString",String.valueOf(hashMapString));
             Log.d("stringSet",String.valueOf(stringSet));
             storePrefList(context,FLUTTER_DEBUGGING_NNOTIFICATION_KEY,stringSet);
@@ -305,10 +311,11 @@ public class ScheduledNotificationReceiver extends BroadcastReceiver {
     preferences.edit().putStringSet(key, value).commit();
   }
 
-  public static void getPrefList(String key) {
+  public static Set<String> getPrefList(String key) {
     Set<String> getStringSet = new HashSet<>();
     getStringSet=preferences.getStringSet(key, new HashSet<String>());
     Log.d("getStringSet",String.valueOf(getStringSet));
+    return getStringSet;
   }
   public static void getPref(String key) {
     String result=preferences.getString(key,"");
