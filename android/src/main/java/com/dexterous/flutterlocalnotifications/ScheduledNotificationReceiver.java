@@ -304,8 +304,11 @@ public class ScheduledNotificationReceiver extends BroadcastReceiver {
   public static void getPrefList(String key) {
 //    Set<String> getStringSet = new HashSet<>();
 //    getStringSet=
-     preferences.getStringSet(key, new HashSet<String>());
-//    Log.d("getStringSet",String.valueOf(getStringSet));
+    Set<String> stringSet = preferences.getStringSet(key,new HashSet<String>());
+
+
+
+    Log.d("stringSet",String.valueOf(stringSet));
 //    return getStringSet;
   }
   public static void getPref(String key) {
