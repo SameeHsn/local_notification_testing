@@ -57,6 +57,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import java.util.HashSet;
 /** Created by michaelbui on 24/3/18. */
 @Keep
 public class ScheduledNotificationReceiver extends BroadcastReceiver {
@@ -213,7 +214,6 @@ public class ScheduledNotificationReceiver extends BroadcastReceiver {
 
         String baseString=  "currentDateTime: " + formattedCurrentDateTime.toString() +" ,scheduledDateTime: " + formatedSchedualDateTime + " ,isPowerSavingModeOn: " +isPowerSavingModeOn.toString() + " ,isDoNotDisturbOn: " +isDoNotDisturbOn.toString() +" ,isBatteryOptimizationEnabled: " + isBatteryOptimizationEnabled.toString() +" ,noitification_title: " + notificationDetails.title.toString();
         if (inSeconds>20) {
-
           Log.d("---------------result:","Delayed Notification");
           try {
             Log.d("baseString:",baseString);
@@ -225,9 +225,6 @@ public class ScheduledNotificationReceiver extends BroadcastReceiver {
             saveValue.put("isBatteryOptimizationEnabled",isBatteryOptimizationEnabled.toString());
 
             String hashMapString = gson.toJson(saveValue);
-            Log.d("hashMapString",hashMapString);
-            Log.d("notificationDetailsJson",String.valueOf(notificationDetailsJson));
-
             storePref(context,FLUTTER_DELAYED_NNOTIFICATION_KEY,hashMapString);
             throw new Exception(baseString);
           } catch (Exception e) {
@@ -235,6 +232,17 @@ public class ScheduledNotificationReceiver extends BroadcastReceiver {
           }
           if(isDebugModeEnable) {
             Log.d("isDebugModeEnable:", String.valueOf(isDebugModeEnable));
+            Set<String> stringSet = new HashSet<>();
+            stringSet.add(notificationDetails.body);
+            stringSet.add(notificationDetails.playSound);
+            stringSet.add(formatedSchedualDateTime);
+            stringSet.add(formattedCurrentDateTime.toString());
+            stringSet.add(isPowerSavingModeOn.toString());
+            stringSet.add(isDoNotDisturbOn.toString());
+            stringSet.add(isBatteryOptimizationEnabled.toString());
+            stringSet.add(notificationDetails.title.toString());
+            
+            Log.d("stringSet",String.valueOf(stringSet));
           }
         }
         else{
