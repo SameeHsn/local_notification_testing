@@ -234,30 +234,28 @@ public class ScheduledNotificationReceiver extends BroadcastReceiver {
           }
           if(isDebugModeEnable) {
             Set<String> getStringSetToEdit = new HashSet<>();
-//            getStringSetToEdit=getPrefList(FLUTTER_DEBUGGING_NNOTIFICATION_KEY);
+            getStringSetToEdit=getPrefList(FLUTTER_DEBUGGING_NNOTIFICATION_KEY);
+            Log.d("getStringSetToEdit:", String.valueOf(getStringSetToEdit));
 
-
-            Log.d("isDebugModeEnable:", String.valueOf(isDebugModeEnable));
-            HashMap<String, String> debuggingValue = new HashMap<String, String>();
-
-            debuggingValue.put("body",notificationDetails.body);
-            debuggingValue.put("playSound",notificationDetails.playSound.toString());
-            debuggingValue.put("title",notificationDetails.title.toString());
-            debuggingValue.put("currentDateTime",formattedCurrentDateTime.toString());
-            debuggingValue.put("scheduledDateTime",formatedSchedualDateTime);
-            debuggingValue.put("isPowerSavingModeOn",isPowerSavingModeOn.toString());
-            debuggingValue.put("isDoNotDisturbOn",isDoNotDisturbOn.toString());
-            debuggingValue.put("isBatteryOptimizationEnabled",isBatteryOptimizationEnabled.toString());
-
-            String hashMapString = gson.toJson(debuggingValue);
-
-            Set<String> tempStringSet = new HashSet<>();
-
-            getStringSetToEdit.add(hashMapString);
-            Log.d("hashMapString",String.valueOf(hashMapString));
-            Log.d("stringSet",String.valueOf(getStringSetToEdit));
-            storePrefList(context,FLUTTER_DEBUGGING_NNOTIFICATION_KEY,getStringSetToEdit);
-            tempStringSet=getPrefList(FLUTTER_DEBUGGING_NNOTIFICATION_KEY);
+//            Log.d("isDebugModeEnable:", String.valueOf(isDebugModeEnable));
+//            HashMap<String, String> debuggingValue = new HashMap<String, String>();
+//
+//            debuggingValue.put("body",notificationDetails.body);
+//            debuggingValue.put("playSound",notificationDetails.playSound.toString());
+//            debuggingValue.put("title",notificationDetails.title.toString());
+//            debuggingValue.put("currentDateTime",formattedCurrentDateTime.toString());
+//            debuggingValue.put("scheduledDateTime",formatedSchedualDateTime);
+//            debuggingValue.put("isPowerSavingModeOn",isPowerSavingModeOn.toString());
+//            debuggingValue.put("isDoNotDisturbOn",isDoNotDisturbOn.toString());
+//            debuggingValue.put("isBatteryOptimizationEnabled",isBatteryOptimizationEnabled.toString());
+//
+//            String hashMapString = gson.toJson(debuggingValue);
+//
+//            getStringSetToEdit.add(hashMapString);
+//            Log.d("hashMapString",String.valueOf(hashMapString));
+//            Log.d("stringSet",String.valueOf(getStringSetToEdit));
+//            storePrefList(context,FLUTTER_DEBUGGING_NNOTIFICATION_KEY,getStringSetToEdit);
+//            getPrefList(FLUTTER_DEBUGGING_NNOTIFICATION_KEY);
           }
         }
         else{
