@@ -235,6 +235,7 @@ public class ScheduledNotificationReceiver extends BroadcastReceiver {
           if(isDebugModeEnable) {
             Set<String> getStringSetData = new HashSet<>();
             getStringSetData=getPrefList(FLUTTER_DEBUGGING_NOTIFICATION_KEY);
+            Log.d("getStringSetData before:", String.valueOf(getStringSetData));
 
             Log.d("isDebugModeEnable:", String.valueOf(isDebugModeEnable));
             HashMap<String, String> debuggingValue = new HashMap<String, String>();
@@ -270,7 +271,8 @@ public class ScheduledNotificationReceiver extends BroadcastReceiver {
 
               storePrefList(context,FLUTTER_DEBUGGING_NOTIFICATION_KEY,getStringSetData);
             }
-            getPrefList(FLUTTER_DEBUGGING_NOTIFICATION_KEY);
+
+            Log.d("getStringSetData after:", String.valueOf(getPrefList(FLUTTER_DEBUGGING_NOTIFICATION_KEY)));
 
           }
         }
