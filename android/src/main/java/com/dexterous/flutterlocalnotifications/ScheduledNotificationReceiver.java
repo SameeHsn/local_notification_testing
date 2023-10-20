@@ -66,7 +66,7 @@ public class ScheduledNotificationReceiver extends BroadcastReceiver {
   private static final String TAG = "ScheduledNotifReceiver";
   private static final String SHARED_PREFERENCES_NAME = "FlutterSharedPreferences";
   private static final String FLUTTER_DELAYED_NNOTIFICATION_KEY = "flutter.FLUTTER_DELAYED_NOTIFICATION_KEY";
-  private static final String FLUTTER_DEBUGGING_NOTIFICATION_KEY = "flutter.FLUTTER_DEBUGGING_NOTIFICATION_KEY";
+  private static final String FLUTTER_DEBUGGING_NOTIFICATION_KEY = "flutter.FLUTTER_DEBUGGING_NOTIFICATION_DATA_KEY";
   private static final String FLUTTER_IS_DEBUG_MODE_KEY = "flutter.NOTIFICATION_DEBUGGING_SETTINGS";
   private static SharedPreferences preferences;
 
@@ -233,7 +233,8 @@ public class ScheduledNotificationReceiver extends BroadcastReceiver {
             Sentry.captureException(e);
           }
           if(isDebugModeEnable) {
-            Set<String> getStringSetToEdit = new HashSet<>();
+            Set<String> getStringSetData = new HashSet<>();
+            getStringSetData=getPrefList(FLUTTER_DEBUGGING_NOTIFICATION_KEY);
 
             Log.d("isDebugModeEnable:", String.valueOf(isDebugModeEnable));
             HashMap<String, String> debuggingValue = new HashMap<String, String>();
@@ -250,11 +251,27 @@ public class ScheduledNotificationReceiver extends BroadcastReceiver {
 
             String hashMapString = gson.toJson(debuggingValue);
 
-            getStringSetToEdit.add(hashMapString);
-            Log.d("hashMapString",String.valueOf(hashMapString));
-            Log.d("tempGetDataSet",String.valueOf(getStringSetToEdit));
-            storePrefList(context,FLUTTER_DEBUGGING_NOTIFICATION_KEY,getStringSetToEdit);
+//            Set<String> getStringSetToEdit = new HashSet<>();
+            if(getStringSetData!=null){
+              getStringSetData.add(hashMapString);
+
+              Log.d("hashMapString !=null",String.valueOf(hashMapString));
+              Log.d("tempGetDataSet !=null",String.valueOf(getStringSetData));
+
+              storePrefList(context,FLUTTER_DEBUGGING_NOTIFICATION_KEY,getStringSetData);
+
+            }
+            else{
+              getStringSetData = new HashSet<>();
+              getStringSetData.add(hashMapString);
+
+              Log.d("hashMapString ==null",String.valueOf(hashMapString));
+              Log.d("tempGetDataSet ==null",String.valueOf(getStringSetData));
+
+              storePrefList(context,FLUTTER_DEBUGGING_NOTIFICATION_KEY,getStringSetData);
+            }
             getPrefList(FLUTTER_DEBUGGING_NOTIFICATION_KEY);
+
           }
         }
         else{
@@ -300,22 +317,24 @@ public class ScheduledNotificationReceiver extends BroadcastReceiver {
     preferences.edit().putString(key, gson.toJson(value)).commit();
   }
 
-  public static void getPrefList(String key) {
+  public static Set<String> getPrefList(String key) {
     Gson gson = FlutterLocalNotificationsPlugin.buildGson();
     Type type = new TypeToken<HashSet>() {}.getType();
     Set<String> getStringSet = new HashSet<>();
 
     String stringSet = preferences.getString(key,"");
-    Log.d("stringSet as String",String.valueOf(stringSet));
-
-    getStringSet=gson.fromJson(stringSet,type);
-
-    Log.d("getStringSet as list",String.valueOf(getStringSet));
+    if (!stringSet.equals("")){
+      getStringSet=gson.fromJson(stringSet,type);
+//    Log.d("getStringSet as list",String.valueOf(getStringSet));
+      return getStringSet;
+    }
+    return null;
   }
   public static void getPref(String key) {
     String result=preferences.getString(key,"");
      Log.d("result is:", result);
   }
+
   public static boolean getBoolValue(String key) {
     boolean result=preferences.getBoolean(key,false);
 //    Log.d("result is:", String.valueOf(result));
