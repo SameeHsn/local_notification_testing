@@ -244,7 +244,7 @@ public class ScheduledNotificationReceiver extends BroadcastReceiver {
             debuggingValue.put("isDoNotDisturbOn",isDoNotDisturbOn.toString());
             debuggingValue.put("isBatteryOptimizationEnabled",isBatteryOptimizationEnabled.toString());
 
-            String hashMapString = gson.toJson(saveValue);
+            String hashMapString = gson.toJson(debuggingValue);
             Set<String> stringSet = new HashSet<>();
             stringSet.add(hashMapString);
             Log.d("hashMapString",String.valueOf(hashMapString));
