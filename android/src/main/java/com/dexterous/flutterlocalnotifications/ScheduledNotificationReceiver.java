@@ -136,7 +136,7 @@ public class ScheduledNotificationReceiver extends BroadcastReceiver {
 //      }
 
       // if(isDebugModeEnable){
-        Log.d("isDebugModeEnable:", String.valueOf(isDebugModeEnable));
+//        Log.d("isDebugModeEnable:", String.valueOf(isDebugModeEnable));
         String isPowerSavingModeOn="";
         String isDoNotDisturbOn="";
         String isBatteryOptimizationEnabled="";
