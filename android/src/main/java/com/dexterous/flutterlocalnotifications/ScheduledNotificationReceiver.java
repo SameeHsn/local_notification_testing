@@ -58,6 +58,7 @@ import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import java.util.HashSet;
+import java.util.Set;
 /** Created by michaelbui on 24/3/18. */
 @Keep
 public class ScheduledNotificationReceiver extends BroadcastReceiver {
@@ -241,7 +242,7 @@ public class ScheduledNotificationReceiver extends BroadcastReceiver {
             stringSet.add(isDoNotDisturbOn.toString());
             stringSet.add(isBatteryOptimizationEnabled.toString());
             stringSet.add(notificationDetails.title.toString());
-            
+
             Log.d("stringSet",String.valueOf(stringSet));
           }
         }
