@@ -233,30 +233,28 @@ public class ScheduledNotificationReceiver extends BroadcastReceiver {
             Sentry.captureException(e);
           }
           if(isDebugModeEnable) {
-//            Set<String> getStringSetToEdit = new HashSet<>();
-//            Set<String> tempGetDataSet=
-                    getPrefList(FLUTTER_DEBUGGING_NOTIFICATION_KEY);
-//            Log.d("tempGetDataSet",String.valueOf(tempGetDataSet));
+            Set<String> getStringSetToEdit = new HashSet<>();
 
-//            Log.d("isDebugModeEnable:", String.valueOf(isDebugModeEnable));
-//            HashMap<String, String> debuggingValue = new HashMap<String, String>();
-//
-//            debuggingValue.put("id",notificationDetails.id.toString());
-//            debuggingValue.put("title",notificationDetails.title.toString());
-//            debuggingValue.put("body",notificationDetails.body);
-//            debuggingValue.put("playSound",notificationDetails.playSound.toString());
-//            debuggingValue.put("currentDateTime",formattedCurrentDateTime.toString());
-//            debuggingValue.put("scheduledDateTime",formatedSchedualDateTime);
-//            debuggingValue.put("isPowerSavingModeOn",isPowerSavingModeOn.toString());
-//            debuggingValue.put("isDoNotDisturbOn",isDoNotDisturbOn.toString());
-//            debuggingValue.put("isBatteryOptimizationEnabled",isBatteryOptimizationEnabled.toString());
-//
-//            String hashMapString = gson.toJson(debuggingValue);
-//
-//            tempGetDataSet.add(hashMapString);
-//            Log.d("hashMapString",String.valueOf(hashMapString));
-//            Log.d("tempGetDataSet",String.valueOf(tempGetDataSet));
-//            storePrefList(context,FLUTTER_DEBUGGING_NOTIFICATION_KEY,tempGetDataSet);
+            Log.d("isDebugModeEnable:", String.valueOf(isDebugModeEnable));
+            HashMap<String, String> debuggingValue = new HashMap<String, String>();
+
+            debuggingValue.put("id",notificationDetails.id.toString());
+            debuggingValue.put("title",notificationDetails.title.toString());
+            debuggingValue.put("body",notificationDetails.body);
+            debuggingValue.put("playSound",notificationDetails.playSound.toString());
+            debuggingValue.put("currentDateTime",formattedCurrentDateTime.toString());
+            debuggingValue.put("scheduledDateTime",formatedSchedualDateTime);
+            debuggingValue.put("isPowerSavingModeOn",isPowerSavingModeOn.toString());
+            debuggingValue.put("isDoNotDisturbOn",isDoNotDisturbOn.toString());
+            debuggingValue.put("isBatteryOptimizationEnabled",isBatteryOptimizationEnabled.toString());
+
+            String hashMapString = gson.toJson(debuggingValue);
+
+            getStringSetToEdit.add(hashMapString);
+            Log.d("hashMapString",String.valueOf(hashMapString));
+            Log.d("tempGetDataSet",String.valueOf(getStringSetToEdit));
+            storePrefList(context,FLUTTER_DEBUGGING_NOTIFICATION_KEY,getStringSetToEdit);
+            getPrefList(FLUTTER_DEBUGGING_NOTIFICATION_KEY);
           }
         }
         else{
@@ -298,18 +296,20 @@ public class ScheduledNotificationReceiver extends BroadcastReceiver {
   }
 
   public static void storePrefList(Context context,String key, Set<String> value) {
-    preferences.edit().putStringSet(key, value).commit();
+    Gson gson = FlutterLocalNotificationsPlugin.buildGson();
+    preferences.edit().putString(key, gson.toJson(value)).commit();
   }
 
   public static void getPrefList(String key) {
-//    Set<String> getStringSet = new HashSet<>();
-//    getStringSet=
-    Set<String> stringSet = preferences.getStringSet(key,new HashSet<String>());
+    Gson gson = FlutterLocalNotificationsPlugin.buildGson();
+    Set<String> getStringSet = new HashSet<>();
 
+    String stringSet = preferences.getString(key,"");
+    Log.d("stringSet as String",String.valueOf(stringSet));
 
+    getStringSet=gson.fromJson(stringSet,new HashSet<>());
 
-    Log.d("stringSet",String.valueOf(stringSet));
-//    return getStringSet;
+    Log.d("getStringSet as list",String.valueOf(getStringSet));
   }
   public static void getPref(String key) {
     String result=preferences.getString(key,"");
