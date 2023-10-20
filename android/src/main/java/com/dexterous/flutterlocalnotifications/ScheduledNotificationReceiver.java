@@ -233,10 +233,9 @@ public class ScheduledNotificationReceiver extends BroadcastReceiver {
             Sentry.captureException(e);
           }
           if(isDebugModeEnable) {
-            Set<String> getStringSetToEdit = new HashSet<>();
-            getStringSetToEdit=getPrefList(FLUTTER_DEBUGGING_NNOTIFICATION_KEY);
-            Log.d("getStringSetToEdit:", String.valueOf(getStringSetToEdit));
-
+            Set<String> tempStringSet = new HashSet<>();
+            tempStringSet=getPrefList(FLUTTER_DEBUGGING_NNOTIFICATION_KEY);
+            Log.d("getStringSetToEdit",String.valueOf(tempStringSet));
 //            Log.d("isDebugModeEnable:", String.valueOf(isDebugModeEnable));
 //            HashMap<String, String> debuggingValue = new HashMap<String, String>();
 //
