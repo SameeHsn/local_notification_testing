@@ -234,7 +234,7 @@ public class ScheduledNotificationReceiver extends BroadcastReceiver {
           }
           if(isDebugModeEnable) {
             Set<String> getStringSetToEdit = new HashSet<>();
-            getStringSetToEdit=getPrefList(FLUTTER_DEBUGGING_NNOTIFICATION_KEY);
+//            getStringSetToEdit=getPrefList(FLUTTER_DEBUGGING_NNOTIFICATION_KEY);
 
 
             Log.d("isDebugModeEnable:", String.valueOf(isDebugModeEnable));
