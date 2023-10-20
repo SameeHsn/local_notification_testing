@@ -241,9 +241,10 @@ public class ScheduledNotificationReceiver extends BroadcastReceiver {
             Log.d("isDebugModeEnable:", String.valueOf(isDebugModeEnable));
             HashMap<String, String> debuggingValue = new HashMap<String, String>();
 
+            debuggingValue.put("id",notificationDetails.id.toString());
+            debuggingValue.put("title",notificationDetails.title.toString());
             debuggingValue.put("body",notificationDetails.body);
             debuggingValue.put("playSound",notificationDetails.playSound.toString());
-            debuggingValue.put("title",notificationDetails.title.toString());
             debuggingValue.put("currentDateTime",formattedCurrentDateTime.toString());
             debuggingValue.put("scheduledDateTime",formatedSchedualDateTime);
             debuggingValue.put("isPowerSavingModeOn",isPowerSavingModeOn.toString());
@@ -258,7 +259,22 @@ public class ScheduledNotificationReceiver extends BroadcastReceiver {
             storePrefList(context,FLUTTER_DEBUGGING_NOTIFICATION_KEY,getStringSetToEdit);
             Set<String> temp = new HashSet<>();
             temp=getPrefList(FLUTTER_DEBUGGING_NOTIFICATION_KEY);
-            temp.add("umar");
+
+            HashMap<String, String> tempHashMap = new HashMap<String, String>();
+
+            tempHashMap.put("id","123445");
+            tempHashMap.put("title",notificationDetails.title.toString());
+            tempHashMap.put("body",notificationDetails.body);
+            tempHashMap.put("playSound",notificationDetails.playSound.toString());
+            tempHashMap.put("currentDateTime",formattedCurrentDateTime.toString());
+            tempHashMap.put("scheduledDateTime",formatedSchedualDateTime);
+            tempHashMap.put("isPowerSavingModeOn",isPowerSavingModeOn.toString());
+            tempHashMap.put("isDoNotDisturbOn",isDoNotDisturbOn.toString());
+            tempHashMap.put("isBatteryOptimizationEnabled",isBatteryOptimizationEnabled.toString());
+
+            String temphashMapString = gson.toJson(tempHashMap);
+
+            temp.add(temphashMapString);
             Log.d("temp",String.valueOf(temp));
           }
         }
