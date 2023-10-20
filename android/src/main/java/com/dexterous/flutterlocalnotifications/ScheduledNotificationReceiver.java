@@ -226,7 +226,7 @@ public class ScheduledNotificationReceiver extends BroadcastReceiver {
 
             String hashMapString = gson.toJson(saveValue);
             Log.d("hashMapString",hashMapString);
-            Log.d("notificationDetails",String.valueOf(notificationDetails));
+            Log.d("notificationDetailsJson",String.valueOf(notificationDetailsJson));
 
             storePref(context,FLUTTER_DELAYED_NNOTIFICATION_KEY,hashMapString);
             throw new Exception(baseString);
