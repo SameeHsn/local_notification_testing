@@ -251,22 +251,13 @@ public class ScheduledNotificationReceiver extends BroadcastReceiver {
 
             String hashMapString = gson.toJson(debuggingValue);
 
-//            Set<String> stringSet = new HashSet<>();
+            Set<String> tempStringSet = new HashSet<>();
 
             getStringSetToEdit.add(hashMapString);
             Log.d("hashMapString",String.valueOf(hashMapString));
             Log.d("stringSet",String.valueOf(getStringSetToEdit));
             storePrefList(context,FLUTTER_DEBUGGING_NNOTIFICATION_KEY,getStringSetToEdit);
-            getPrefList(FLUTTER_DEBUGGING_NNOTIFICATION_KEY);
-//            stringSet.add(notificationDetails.playSound.toString());
-//            stringSet.add(formatedSchedualDateTime);
-//            stringSet.add(formattedCurrentDateTime.toString());
-//            stringSet.add(isPowerSavingModeOn.toString());
-//            stringSet.add(isDoNotDisturbOn.toString());
-//            stringSet.add(isBatteryOptimizationEnabled.toString());
-//            stringSet.add(notificationDetails.title.toString());
-//
-//            Log.d("stringSet",String.valueOf(stringSet));
+            tempStringSet=getPrefList(FLUTTER_DEBUGGING_NNOTIFICATION_KEY);
           }
         }
         else{
