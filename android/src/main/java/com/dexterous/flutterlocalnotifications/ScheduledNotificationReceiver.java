@@ -233,10 +233,10 @@ public class ScheduledNotificationReceiver extends BroadcastReceiver {
             Sentry.captureException(e);
           }
           if(isDebugModeEnable) {
-            Set<String> getStringSetToEdit = new HashSet<>();
-//            getStringSetToEdit=
-//                    getPrefList(FLUTTER_DEBUGGING_NOTIFICATION_KEY);
-//            Log.d("getStringSetToEdit",String.valueOf(getStringSetToEdit));
+//            Set<String> getStringSetToEdit = new HashSet<>();
+            Set<String> tempGetDataSet=
+                    getPrefList(FLUTTER_DEBUGGING_NOTIFICATION_KEY);
+            Log.d("tempGetDataSet",String.valueOf(tempGetDataSet));
 
             Log.d("isDebugModeEnable:", String.valueOf(isDebugModeEnable));
             HashMap<String, String> debuggingValue = new HashMap<String, String>();
@@ -253,29 +253,29 @@ public class ScheduledNotificationReceiver extends BroadcastReceiver {
 
             String hashMapString = gson.toJson(debuggingValue);
 
-            getStringSetToEdit.add(hashMapString);
+            tempGetDataSet.add(hashMapString);
             Log.d("hashMapString",String.valueOf(hashMapString));
-            Log.d("stringSet",String.valueOf(getStringSetToEdit));
-            storePrefList(context,FLUTTER_DEBUGGING_NOTIFICATION_KEY,getStringSetToEdit);
-            Set<String> temp = new HashSet<>();
-            temp=getPrefList(FLUTTER_DEBUGGING_NOTIFICATION_KEY);
-
-            HashMap<String, String> tempHashMap = new HashMap<String, String>();
-
-            tempHashMap.put("id","123445");
-            tempHashMap.put("title",notificationDetails.title.toString());
-            tempHashMap.put("body",notificationDetails.body);
-            tempHashMap.put("playSound",notificationDetails.playSound.toString());
-            tempHashMap.put("currentDateTime",formattedCurrentDateTime.toString());
-            tempHashMap.put("scheduledDateTime",formatedSchedualDateTime);
-            tempHashMap.put("isPowerSavingModeOn",isPowerSavingModeOn.toString());
-            tempHashMap.put("isDoNotDisturbOn",isDoNotDisturbOn.toString());
-            tempHashMap.put("isBatteryOptimizationEnabled",isBatteryOptimizationEnabled.toString());
-
-            String temphashMapString = gson.toJson(tempHashMap);
-
-            temp.add(temphashMapString);
-            Log.d("temp",String.valueOf(temp));
+            Log.d("tempGetDataSet",String.valueOf(tempGetDataSet));
+            storePrefList(context,FLUTTER_DEBUGGING_NOTIFICATION_KEY,tempGetDataSet);
+//            Set<String> temp = new HashSet<>();
+//            temp=getPrefList(FLUTTER_DEBUGGING_NOTIFICATION_KEY);
+//
+//            HashMap<String, String> tempHashMap = new HashMap<String, String>();
+//
+//            tempHashMap.put("id","123445");
+//            tempHashMap.put("title",notificationDetails.title.toString());
+//            tempHashMap.put("body",notificationDetails.body);
+//            tempHashMap.put("playSound",notificationDetails.playSound.toString());
+//            tempHashMap.put("currentDateTime",formattedCurrentDateTime.toString());
+//            tempHashMap.put("scheduledDateTime",formatedSchedualDateTime);
+//            tempHashMap.put("isPowerSavingModeOn",isPowerSavingModeOn.toString());
+//            tempHashMap.put("isDoNotDisturbOn",isDoNotDisturbOn.toString());
+//            tempHashMap.put("isBatteryOptimizationEnabled",isBatteryOptimizationEnabled.toString());
+//
+//            String temphashMapString = gson.toJson(tempHashMap);
+//
+//            temp.add(temphashMapString);
+//            Log.d("temp",String.valueOf(temp));
           }
         }
         else{
