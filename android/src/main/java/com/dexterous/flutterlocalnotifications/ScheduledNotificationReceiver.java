@@ -307,9 +307,9 @@ public class ScheduledNotificationReceiver extends BroadcastReceiver {
     String stringSet = preferences.getString(key,"");
     Log.d("stringSet as String",String.valueOf(stringSet));
 
-    getStringSet=gson.fromJson(stringSet,new HashSet<>());
+//    getStringSet=gson.fromJson(stringSet,new HashSet<>());
 
-    Log.d("getStringSet as list",String.valueOf(getStringSet));
+//    Log.d("getStringSet as list",String.valueOf(getStringSet));
   }
   public static void getPref(String key) {
     String result=preferences.getString(key,"");
