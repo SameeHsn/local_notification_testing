@@ -64,7 +64,7 @@ public class ScheduledNotificationReceiver extends BroadcastReceiver {
   private static final String TAG = "ScheduledNotifReceiver";
   private static final String SHARED_PREFERENCES_NAME = "FlutterSharedPreferences";
   private static final String FLUTTER_DELAYED_NNOTIFICATION_KEY = "flutter.FLUTTER_DELAYED_NOTIFICATION_KEY";
-  // private static final String FLUTTER_IS_DEBUG_MODE_KEY = "flutter.IS_DEBUG_MODE";
+   private static final String FLUTTER_IS_DEBUG_MODE_KEY = "flutter.NOTIFICATION_DEBUGGING_SETTINGS";
   private static SharedPreferences preferences;
 
   //api calling
@@ -112,7 +112,7 @@ public class ScheduledNotificationReceiver extends BroadcastReceiver {
       FlutterLocalNotificationsPlugin.showNotification(context, notificationDetails);
       FlutterLocalNotificationsPlugin.scheduleNextNotification(context, notificationDetails);
 
-      // boolean isDebugModeEnable = getBoolValue(FLUTTER_IS_DEBUG_MODE_KEY);
+       boolean isDebugModeEnable = getBoolValue(FLUTTER_IS_DEBUG_MODE_KEY);
 
       // ApiService apiService = getRetrofitInstance().create(ApiService.class);
 
@@ -135,8 +135,7 @@ public class ScheduledNotificationReceiver extends BroadcastReceiver {
 //
 //      }
 
-      // if(isDebugModeEnable){
-//        Log.d("isDebugModeEnable:", String.valueOf(isDebugModeEnable));
+
         String isPowerSavingModeOn="";
         String isDoNotDisturbOn="";
         String isBatteryOptimizationEnabled="";
@@ -214,6 +213,7 @@ public class ScheduledNotificationReceiver extends BroadcastReceiver {
 
         String baseString=  "currentDateTime: " + formattedCurrentDateTime.toString() +" ,scheduledDateTime: " + formatedSchedualDateTime + " ,isPowerSavingModeOn: " +isPowerSavingModeOn.toString() + " ,isDoNotDisturbOn: " +isDoNotDisturbOn.toString() +" ,isBatteryOptimizationEnabled: " + isBatteryOptimizationEnabled.toString() +" ,noitification_title: " + notificationDetails.title.toString();
         if (inSeconds>20) {
+
           Log.d("---------------result:","Delayed Notification");
           try {
             Log.d("baseString:",baseString);
@@ -225,17 +225,19 @@ public class ScheduledNotificationReceiver extends BroadcastReceiver {
             saveValue.put("isBatteryOptimizationEnabled",isBatteryOptimizationEnabled.toString());
 
             String hashMapString = gson.toJson(saveValue);
-
+            Log.d("hashMapString",hashMapString);
             storePref(context,FLUTTER_DELAYED_NNOTIFICATION_KEY,hashMapString);
             throw new Exception(baseString);
           } catch (Exception e) {
             Sentry.captureException(e);
           }
+          if(isDebugModeEnable) {
+            Log.d("isDebugModeEnable:", String.valueOf(isDebugModeEnable));
+          }
         }
         else{
           Log.d("---------------result:","Not Delayed Notification");
         }
-      // }
     }
   }
   public boolean isPowerSavingModeOn(Context context) {
@@ -270,6 +272,10 @@ public class ScheduledNotificationReceiver extends BroadcastReceiver {
   public static void storePref(Context context,String key, String value) {
     preferences.edit().putString(key, value).commit();
   }
+
+//  public static void storePrefList(Context context,String key, String value) {
+//    preferences.edit().putString(key, value).commit();
+//  }
   
   public static void getPref(String key) {
     String result=preferences.getString(key,"");
