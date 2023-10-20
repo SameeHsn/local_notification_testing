@@ -233,17 +233,31 @@ public class ScheduledNotificationReceiver extends BroadcastReceiver {
           }
           if(isDebugModeEnable) {
             Log.d("isDebugModeEnable:", String.valueOf(isDebugModeEnable));
-            Set<String> stringSet = new HashSet<>();
-            stringSet.add(notificationDetails.body);
-            stringSet.add(notificationDetails.playSound);
-            stringSet.add(formatedSchedualDateTime);
-            stringSet.add(formattedCurrentDateTime.toString());
-            stringSet.add(isPowerSavingModeOn.toString());
-            stringSet.add(isDoNotDisturbOn.toString());
-            stringSet.add(isBatteryOptimizationEnabled.toString());
-            stringSet.add(notificationDetails.title.toString());
+            HashMap<String, String> debuggingValue = new HashMap<String, String>();
 
+            debuggingValue.put("body",notificationDetails.body);
+            debuggingValue.put("playSound",notificationDetails.playSound.toString());
+            debuggingValue.put("title",notificationDetails.title.toString());
+            debuggingValue.put("currentDateTime",formattedCurrentDateTime.toString());
+            debuggingValue.put("scheduledDateTime",formatedSchedualDateTime);
+            debuggingValue.put("isPowerSavingModeOn",isPowerSavingModeOn.toString());
+            debuggingValue.put("isDoNotDisturbOn",isDoNotDisturbOn.toString());
+            debuggingValue.put("isBatteryOptimizationEnabled",isBatteryOptimizationEnabled.toString());
+
+            String hashMapString = gson.toJson(saveValue);
+            Set<String> stringSet = new HashSet<>();
+            stringSet.add(hashMapString);
+            Log.d("hashMapString",String.valueOf(hashMapString));
             Log.d("stringSet",String.valueOf(stringSet));
+//            stringSet.add(notificationDetails.playSound.toString());
+//            stringSet.add(formatedSchedualDateTime);
+//            stringSet.add(formattedCurrentDateTime.toString());
+//            stringSet.add(isPowerSavingModeOn.toString());
+//            stringSet.add(isDoNotDisturbOn.toString());
+//            stringSet.add(isBatteryOptimizationEnabled.toString());
+//            stringSet.add(notificationDetails.title.toString());
+//
+//            Log.d("stringSet",String.valueOf(stringSet));
           }
         }
         else{
