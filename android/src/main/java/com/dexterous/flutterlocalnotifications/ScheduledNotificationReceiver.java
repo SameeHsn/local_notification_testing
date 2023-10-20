@@ -234,48 +234,29 @@ public class ScheduledNotificationReceiver extends BroadcastReceiver {
           }
           if(isDebugModeEnable) {
 //            Set<String> getStringSetToEdit = new HashSet<>();
-            Set<String> tempGetDataSet=
+//            Set<String> tempGetDataSet=
                     getPrefList(FLUTTER_DEBUGGING_NOTIFICATION_KEY);
-            Log.d("tempGetDataSet",String.valueOf(tempGetDataSet));
+//            Log.d("tempGetDataSet",String.valueOf(tempGetDataSet));
 
-            Log.d("isDebugModeEnable:", String.valueOf(isDebugModeEnable));
-            HashMap<String, String> debuggingValue = new HashMap<String, String>();
-
-            debuggingValue.put("id",notificationDetails.id.toString());
-            debuggingValue.put("title",notificationDetails.title.toString());
-            debuggingValue.put("body",notificationDetails.body);
-            debuggingValue.put("playSound",notificationDetails.playSound.toString());
-            debuggingValue.put("currentDateTime",formattedCurrentDateTime.toString());
-            debuggingValue.put("scheduledDateTime",formatedSchedualDateTime);
-            debuggingValue.put("isPowerSavingModeOn",isPowerSavingModeOn.toString());
-            debuggingValue.put("isDoNotDisturbOn",isDoNotDisturbOn.toString());
-            debuggingValue.put("isBatteryOptimizationEnabled",isBatteryOptimizationEnabled.toString());
-
-            String hashMapString = gson.toJson(debuggingValue);
-
-            tempGetDataSet.add(hashMapString);
-            Log.d("hashMapString",String.valueOf(hashMapString));
-            Log.d("tempGetDataSet",String.valueOf(tempGetDataSet));
-            storePrefList(context,FLUTTER_DEBUGGING_NOTIFICATION_KEY,tempGetDataSet);
-//            Set<String> temp = new HashSet<>();
-//            temp=getPrefList(FLUTTER_DEBUGGING_NOTIFICATION_KEY);
+//            Log.d("isDebugModeEnable:", String.valueOf(isDebugModeEnable));
+//            HashMap<String, String> debuggingValue = new HashMap<String, String>();
 //
-//            HashMap<String, String> tempHashMap = new HashMap<String, String>();
+//            debuggingValue.put("id",notificationDetails.id.toString());
+//            debuggingValue.put("title",notificationDetails.title.toString());
+//            debuggingValue.put("body",notificationDetails.body);
+//            debuggingValue.put("playSound",notificationDetails.playSound.toString());
+//            debuggingValue.put("currentDateTime",formattedCurrentDateTime.toString());
+//            debuggingValue.put("scheduledDateTime",formatedSchedualDateTime);
+//            debuggingValue.put("isPowerSavingModeOn",isPowerSavingModeOn.toString());
+//            debuggingValue.put("isDoNotDisturbOn",isDoNotDisturbOn.toString());
+//            debuggingValue.put("isBatteryOptimizationEnabled",isBatteryOptimizationEnabled.toString());
 //
-//            tempHashMap.put("id","123445");
-//            tempHashMap.put("title",notificationDetails.title.toString());
-//            tempHashMap.put("body",notificationDetails.body);
-//            tempHashMap.put("playSound",notificationDetails.playSound.toString());
-//            tempHashMap.put("currentDateTime",formattedCurrentDateTime.toString());
-//            tempHashMap.put("scheduledDateTime",formatedSchedualDateTime);
-//            tempHashMap.put("isPowerSavingModeOn",isPowerSavingModeOn.toString());
-//            tempHashMap.put("isDoNotDisturbOn",isDoNotDisturbOn.toString());
-//            tempHashMap.put("isBatteryOptimizationEnabled",isBatteryOptimizationEnabled.toString());
+//            String hashMapString = gson.toJson(debuggingValue);
 //
-//            String temphashMapString = gson.toJson(tempHashMap);
-//
-//            temp.add(temphashMapString);
-//            Log.d("temp",String.valueOf(temp));
+//            tempGetDataSet.add(hashMapString);
+//            Log.d("hashMapString",String.valueOf(hashMapString));
+//            Log.d("tempGetDataSet",String.valueOf(tempGetDataSet));
+//            storePrefList(context,FLUTTER_DEBUGGING_NOTIFICATION_KEY,tempGetDataSet);
           }
         }
         else{
@@ -320,10 +301,10 @@ public class ScheduledNotificationReceiver extends BroadcastReceiver {
     preferences.edit().putStringSet(key, value).commit();
   }
 
-  public static Set<String> getPrefList(String key) {
+  public static void getPrefList(String key) {
 //    Set<String> getStringSet = new HashSet<>();
 //    getStringSet=
-    return preferences.getStringSet(key, new HashSet<String>());
+     preferences.getStringSet(key, new HashSet<String>());
 //    Log.d("getStringSet",String.valueOf(getStringSet));
 //    return getStringSet;
   }
@@ -336,7 +317,7 @@ public class ScheduledNotificationReceiver extends BroadcastReceiver {
 //    Log.d("result is:", String.valueOf(result));
     return result;
   }
-  
+
   public static void getKeys(Context context) {
     Log.d("-----getKeys:",preferences.getAll().toString());
   }
