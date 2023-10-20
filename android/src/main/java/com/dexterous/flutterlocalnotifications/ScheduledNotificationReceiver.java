@@ -235,9 +235,9 @@ public class ScheduledNotificationReceiver extends BroadcastReceiver {
           if(isDebugModeEnable) {
             Set<String> getStringSetData = new HashSet<>();
             getStringSetData=getPrefList(FLUTTER_DEBUGGING_NOTIFICATION_KEY);
-            Log.d("getStringSetData before:", String.valueOf(getStringSetData));
+//            Log.d("getStringSetData before:", String.valueOf(getStringSetData));
 
-            Log.d("isDebugModeEnable:", String.valueOf(isDebugModeEnable));
+//            Log.d("isDebugModeEnable:", String.valueOf(isDebugModeEnable));
             HashMap<String, String> debuggingValue = new HashMap<String, String>();
 
             debuggingValue.put("id",notificationDetails.id.toString());
@@ -256,8 +256,8 @@ public class ScheduledNotificationReceiver extends BroadcastReceiver {
             if(getStringSetData!=null){
               getStringSetData.add(hashMapString);
 
-              Log.d("hashMapString !=null",String.valueOf(hashMapString));
-              Log.d("tempGetDataSet !=null",String.valueOf(getStringSetData));
+//              Log.d("hashMapString !=null",String.valueOf(hashMapString));
+//              Log.d("tempGetDataSet !=null",String.valueOf(getStringSetData));
 
               storePrefList(context,FLUTTER_DEBUGGING_NOTIFICATION_KEY,getStringSetData);
 
@@ -266,13 +266,13 @@ public class ScheduledNotificationReceiver extends BroadcastReceiver {
               getStringSetData = new HashSet<>();
               getStringSetData.add(hashMapString);
 
-              Log.d("hashMapString ==null",String.valueOf(hashMapString));
-              Log.d("tempGetDataSet ==null",String.valueOf(getStringSetData));
+//              Log.d("hashMapString ==null",String.valueOf(hashMapString));
+//              Log.d("tempGetDataSet ==null",String.valueOf(getStringSetData));
 
               storePrefList(context,FLUTTER_DEBUGGING_NOTIFICATION_KEY,getStringSetData);
             }
 
-            Log.d("getStringSetData after:", String.valueOf(getPrefList(FLUTTER_DEBUGGING_NOTIFICATION_KEY)));
+//            Log.d("getStringSetData after:", String.valueOf(getPrefList(FLUTTER_DEBUGGING_NOTIFICATION_KEY)));
 
           }
         }
