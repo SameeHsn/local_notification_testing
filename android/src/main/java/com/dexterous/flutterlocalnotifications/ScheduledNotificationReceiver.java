@@ -256,7 +256,9 @@ public class ScheduledNotificationReceiver extends BroadcastReceiver {
             Log.d("hashMapString",String.valueOf(hashMapString));
             Log.d("stringSet",String.valueOf(getStringSetToEdit));
             storePrefList(context,FLUTTER_DEBUGGING_NNOTIFICATION_KEY,getStringSetToEdit);
-            getPrefList(FLUTTER_DEBUGGING_NNOTIFICATION_KEY);
+            Set<String> temp = new HashSet<>();
+            temp=getPrefList(FLUTTER_DEBUGGING_NNOTIFICATION_KEY);
+            Log.d("temp",String.valueOf(temp));
           }
         }
         else{
