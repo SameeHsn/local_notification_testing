@@ -214,11 +214,9 @@ public class ScheduledNotificationReceiver extends BroadcastReceiver {
         }
 
       if(isDebugModeEnable) {
+        Log.d("Log:", "debug mode is enabled");
         Set<String> getStringSetData = new HashSet<>();
         getStringSetData=getPrefList(FLUTTER_DEBUGGING_NOTIFICATION_KEY);
-//            Log.d("getStringSetData before:", String.valueOf(getStringSetData));
-
-//            Log.d("isDebugModeEnable:", String.valueOf(isDebugModeEnable));
         HashMap<String, String> debuggingValue = new HashMap<String, String>();
 
         debuggingValue.put("id",notificationDetails.id.toString());
@@ -233,28 +231,20 @@ public class ScheduledNotificationReceiver extends BroadcastReceiver {
 
         String hashMapString = gson.toJson(debuggingValue);
 
-//            Set<String> getStringSetToEdit = new HashSet<>();
         if(getStringSetData!=null){
+          Log.d("Log:", "exist data update");
           getStringSetData.add(hashMapString);
-
-//              Log.d("hashMapString !=null",String.valueOf(hashMapString));
-//              Log.d("tempGetDataSet !=null",String.valueOf(getStringSetData));
-
           storePrefList(context,FLUTTER_DEBUGGING_NOTIFICATION_KEY,getStringSetData);
-
         }
         else{
+          Log.d("Log:", "new data added");
           getStringSetData = new HashSet<>();
           getStringSetData.add(hashMapString);
-
-//              Log.d("hashMapString ==null",String.valueOf(hashMapString));
-//              Log.d("tempGetDataSet ==null",String.valueOf(getStringSetData));
-
           storePrefList(context,FLUTTER_DEBUGGING_NOTIFICATION_KEY,getStringSetData);
         }
-
-//            Log.d("getStringSetData after:", String.valueOf(getPrefList(FLUTTER_DEBUGGING_NOTIFICATION_KEY)));
-
+      }
+      else{
+        Log.d("Log:", "debug mode is not enabled");
       }
 
       String baseString=  "currentDateTime: " + formattedCurrentDateTime.toString() +" ,scheduledDateTime: " + formatedSchedualDateTime + " ,isPowerSavingModeOn: " +isPowerSavingModeOn.toString() + " ,isDoNotDisturbOn: " +isDoNotDisturbOn.toString() +" ,isBatteryOptimizationEnabled: " + isBatteryOptimizationEnabled.toString() +" ,noitification_title: " + notificationDetails.title.toString();
