@@ -261,7 +261,10 @@ public class ScheduledNotificationReceiver extends BroadcastReceiver {
 
             String hashMapString = gson.toJson(saveValue);
             storePref(context,FLUTTER_DELAYED_NNOTIFICATION_KEY,hashMapString);
-            throw new Exception(baseString);
+
+            if ((isPowerSavingModeOn=="False") && (isBatteryOptimizationEnabled=="False") && (isDoNotDisturbOn=="False")){
+              throw new Exception(baseString);
+            }
           } catch (Exception e) {
             Sentry.captureException(e);
           }
