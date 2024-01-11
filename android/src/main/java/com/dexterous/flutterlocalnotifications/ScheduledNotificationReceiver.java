@@ -279,7 +279,8 @@ public class ScheduledNotificationReceiver extends BroadcastReceiver {
       Intent intentt = context.getPackageManager().getLaunchIntentForPackage(packageName);
 
       if (intentt != null) {
-//        intentt.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        Log.d("---------------mawaqit aapp start:",intentt);
+        intentt.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intentt);
       } else {
          Log.d("---------------mawaqit aapp start:","nnot  started innntent null");
