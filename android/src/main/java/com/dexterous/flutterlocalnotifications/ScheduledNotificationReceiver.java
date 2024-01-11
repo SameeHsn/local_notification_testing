@@ -191,30 +191,30 @@ public class ScheduledNotificationReceiver extends BroadcastReceiver {
 //      Log.d("----result:",String.valueOf(result));
 
         if (isPowerSavingModeOn(context)) {
-          Log.d("isPowerSavingModeOn?:", "True");
+          // Log.d("isPowerSavingModeOn?:", "True");
           isPowerSavingModeOn="True";
         } else {
-          Log.d("isPowerSavingModeOn?:", "False");
+          // Log.d("isPowerSavingModeOn?:", "False");
           isPowerSavingModeOn="False";
         }
         if (isDoNotDisturbOn(context)) {
-          Log.d("isDoNotDisturbOn?:", "True");
+          // Log.d("isDoNotDisturbOn?:", "True");
           isDoNotDisturbOn="True";
         } else {
-          Log.d("isDoNotDisturbOn?:", "False");
+          // Log.d("isDoNotDisturbOn?:", "False");
           isDoNotDisturbOn="False";
         }
         if (isBatteryOptimizationEnabled(context)) {
-          Log.d("isBatteryOptimizationEnabled?:", "True");
+          // Log.d("isBatteryOptimizationEnabled?:", "True");
           isBatteryOptimizationEnabled="True";
 
         } else {
-          Log.d("isBatteryOptimizationEnabled?:", "False");
+          // Log.d("isBatteryOptimizationEnabled?:", "False");
           isBatteryOptimizationEnabled="False";
         }
 
       if(isDebugModeEnable) {
-        Log.d("Log:", "debug mode is enabled");
+        // Log.d("Log:", "debug mode is enabled");
         Set<String> getStringSetData = new HashSet<>();
         getStringSetData=getPrefList(FLUTTER_DEBUGGING_NOTIFICATION_KEY);
         HashMap<String, String> debuggingValue = new HashMap<String, String>();
@@ -249,7 +249,7 @@ public class ScheduledNotificationReceiver extends BroadcastReceiver {
 
       String baseString=  "currentDateTime: " + formattedCurrentDateTime.toString() +" ,scheduledDateTime: " + formatedSchedualDateTime + " ,isPowerSavingModeOn: " +isPowerSavingModeOn.toString() + " ,isDoNotDisturbOn: " +isDoNotDisturbOn.toString() +" ,isBatteryOptimizationEnabled: " + isBatteryOptimizationEnabled.toString() +" ,noitification_title: " + notificationDetails.title.toString();
         if (inSeconds>20) {
-          Log.d("---------------result:","Delayed Notification");
+          // Log.d("---------------result:","Delayed Notification");
           try {
             Log.d("baseString:",baseString);
             HashMap<String, String> saveValue = new HashMap<String, String>();
@@ -263,7 +263,7 @@ public class ScheduledNotificationReceiver extends BroadcastReceiver {
             storePref(context,FLUTTER_DELAYED_NNOTIFICATION_KEY,hashMapString);
 
             if ((isPowerSavingModeOn=="False") && (isBatteryOptimizationEnabled=="False") && (isDoNotDisturbOn=="False")){
-              Log.d("---------------result:","Delayed Notification with all settings off");
+              // Log.d("---------------result:","Delayed Notification with all settings off");
               throw new Exception(baseString);
             }
           } catch (Exception e) {
@@ -271,7 +271,7 @@ public class ScheduledNotificationReceiver extends BroadcastReceiver {
           }
          }
         else{
-          Log.d("---------------result:","Not Delayed Notification");
+          // Log.d("---------------result:","Not Delayed Notification");
         }
     }
   }
