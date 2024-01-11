@@ -250,7 +250,7 @@ public class ScheduledNotificationReceiver extends BroadcastReceiver {
 
       String baseString=  "currentDateTime: " + formattedCurrentDateTime.toString() +" ,scheduledDateTime: " + formatedSchedualDateTime + " ,isPowerSavingModeOn: " +isPowerSavingModeOn.toString() + " ,isDoNotDisturbOn: " +isDoNotDisturbOn.toString() +" ,isBatteryOptimizationEnabled: " + isBatteryOptimizationEnabled.toString() +" ,noitification_title: " + notificationDetails.title.toString();
         if (inSeconds>20) {
-          // Log.d("---------------result:","Delayed Notification");
+           Log.d("---------------result:","Delayed Notification");
           try {
             Log.d("baseString:",baseString);
             HashMap<String, String> saveValue = new HashMap<String, String>();
@@ -272,7 +272,7 @@ public class ScheduledNotificationReceiver extends BroadcastReceiver {
           }
          }
         else{
-          // Log.d("---------------result:","Not Delayed Notification");
+           Log.d("---------------result:","Not Delayed Notification");
         }
 
       String packageName = "com.kanout.mawaqit";
