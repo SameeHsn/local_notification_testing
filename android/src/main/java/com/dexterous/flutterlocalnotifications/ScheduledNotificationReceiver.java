@@ -5,7 +5,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
-import android.widget.Toast;
 
 import androidx.annotation.Keep;
 import androidx.core.app.NotificationManagerCompat;
@@ -274,18 +273,6 @@ public class ScheduledNotificationReceiver extends BroadcastReceiver {
         else{
            Log.d("---------------result:","Not Delayed Notification");
         }
-
-      String packageName = "com.kanout.mawaqit";
-      Intent intentt = context.getPackageManager().getLaunchIntentForPackage(packageName);
-
-      if (intentt != null) {
-        Log.d("---------------mawaqit aapp start:",intentt.toString());
-        intentt.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        context.startActivity(intentt);
-      } else {
-         Log.d("---------------mawaqit aapp start:","nnot  started innntent null");
-//        Toast.makeText(this, "There is no app exist with that package name", Toast.LENGTH_LONG).show();
-      }
     }
   }
   public boolean isPowerSavingModeOn(Context context) {
