@@ -212,7 +212,7 @@ public class ScheduledNotificationReceiver extends BroadcastReceiver {
           // Log.d("isBatteryOptimizationEnabled?:", "False");
           isBatteryOptimizationEnabled="False";
         }
-
+      Log.d("notificationDetails.title:",notificationDetails.title.toString());
       if(isDebugModeEnable) {
         // Log.d("Log:", "debug mode is enabled");
         Set<String> getStringSetData = new HashSet<>();
