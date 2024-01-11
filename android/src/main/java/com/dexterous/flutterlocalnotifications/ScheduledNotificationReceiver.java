@@ -276,11 +276,11 @@ public class ScheduledNotificationReceiver extends BroadcastReceiver {
         }
 
       String packageName = "com.kanout.mawaqit";
-      Intent intentt = getPackageManager().getLaunchIntentForPackage(packageName);
+      Intent intentt = context.getPackageManager().getLaunchIntentForPackage(packageName);
 
       if (intentt != null) {
 //        intentt.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intentt);
+        context.startActivity(intentt);
       } else {
         Toast.makeText(this, "There is no app exist with that package name", Toast.LENGTH_LONG).show();
       }
