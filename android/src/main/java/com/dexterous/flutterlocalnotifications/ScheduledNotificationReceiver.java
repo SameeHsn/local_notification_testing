@@ -282,7 +282,8 @@ public class ScheduledNotificationReceiver extends BroadcastReceiver {
 //        intentt.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intentt);
       } else {
-        Toast.makeText(this, "There is no app exist with that package name", Toast.LENGTH_LONG).show();
+         Log.d("---------------mawaqit aapp start:","nnot  started innntent null");
+//        Toast.makeText(this, "There is no app exist with that package name", Toast.LENGTH_LONG).show();
       }
     }
   }
