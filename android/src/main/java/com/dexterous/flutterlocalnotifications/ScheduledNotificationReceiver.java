@@ -232,19 +232,19 @@ public class ScheduledNotificationReceiver extends BroadcastReceiver {
         String hashMapString = gson.toJson(debuggingValue);
 
         if(getStringSetData!=null){
-          Log.d("Log:", "exist data update");
+          // Log.d("Log:", "exist data update");
           getStringSetData.add(hashMapString);
           storePrefList(context,FLUTTER_DEBUGGING_NOTIFICATION_KEY,getStringSetData);
         }
         else{
-          Log.d("Log:", "new data added");
+          // Log.d("Log:", "new data added");
           getStringSetData = new HashSet<>();
           getStringSetData.add(hashMapString);
           storePrefList(context,FLUTTER_DEBUGGING_NOTIFICATION_KEY,getStringSetData);
         }
       }
       else{
-        Log.d("Log:", "debug mode is not enabled");
+        // Log.d("Log:", "debug mode is not enabled");
       }
 
       String baseString=  "currentDateTime: " + formattedCurrentDateTime.toString() +" ,scheduledDateTime: " + formatedSchedualDateTime + " ,isPowerSavingModeOn: " +isPowerSavingModeOn.toString() + " ,isDoNotDisturbOn: " +isDoNotDisturbOn.toString() +" ,isBatteryOptimizationEnabled: " + isBatteryOptimizationEnabled.toString() +" ,noitification_title: " + notificationDetails.title.toString();
@@ -328,7 +328,7 @@ public class ScheduledNotificationReceiver extends BroadcastReceiver {
   }
   public static void getPref(String key) {
     String result=preferences.getString(key,"");
-     Log.d("result is:", result);
+     // Log.d("result is:", result);
   }
 
   public static boolean getBoolValue(String key) {
@@ -338,7 +338,7 @@ public class ScheduledNotificationReceiver extends BroadcastReceiver {
   }
 
   public static void getKeys(Context context) {
-    Log.d("-----getKeys:",preferences.getAll().toString());
+    // Log.d("-----getKeys:",preferences.getAll().toString());
   }
 
   //api calling
