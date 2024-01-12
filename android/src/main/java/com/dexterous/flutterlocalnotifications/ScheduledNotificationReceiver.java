@@ -113,9 +113,8 @@ public class ScheduledNotificationReceiver extends BroadcastReceiver {
       NotificationDetails notificationDetails = gson.fromJson(notificationDetailsJson, type);
 
       FlutterLocalNotificationsPlugin.showNotification(context, notificationDetails);
-//      notificationDetails.scheduledDateTime="2024-01-12T15:57:00";
-      Log.d("notificationDetails:",notificationDetailsJson.toString());
       FlutterLocalNotificationsPlugin.scheduleNextNotification(context, notificationDetails);
+
        boolean isDebugModeEnable = getBoolValue(FLUTTER_IS_DEBUG_MODE_KEY);
 
       // ApiService apiService = getRetrofitInstance().create(ApiService.class);
