@@ -218,12 +218,16 @@ public class FlutterLocalNotificationsPlugin
   static void scheduleNextNotification(Context context, NotificationDetails notificationDetails) {
     try {
       if (notificationDetails.scheduledNotificationRepeatFrequency != null) {
+        Log.d("scheduleNextNotification:","set  as scheduledNotificationRepeatFrequency");
         zonedScheduleNextNotification(context, notificationDetails);
       } else if (notificationDetails.matchDateTimeComponents != null) {
+        Log.d("scheduleNextNotification:","set  as matchDateTimeComponents");
         zonedScheduleNextNotificationMatchingDateComponents(context, notificationDetails);
       } else if (notificationDetails.repeatInterval != null) {
+        Log.d("scheduleNextNotification:","set  as repeatInterval");
         scheduleNextRepeatingNotification(context, notificationDetails);
       } else {
+        Log.d("scheduleNextNotification:","set  as else");
         removeNotificationFromCache(context, notificationDetails.id);
       }
     } catch (ExactAlarmPermissionException e) {
@@ -693,11 +697,9 @@ public class FlutterLocalNotificationsPlugin
     } else {
       if (notificationDetails.scheduleMode.useExactAlarm()) {
         checkCanScheduleExactAlarms(alarmManager);
-        Log.d("setExact:","set  as setExact");
         AlarmManagerCompat.setExact(
             alarmManager, AlarmManager.RTC_WAKEUP, epochMilli, pendingIntent);
       } else if (notificationDetails.scheduleMode.useAlarmClock()) {
-        Log.d("setAlarmClock:","set  as setAlarmClock");
         AlarmManagerCompat.setAlarmClock(alarmManager, epochMilli, pendingIntent, pendingIntent);
       } else {
         alarmManager.set(AlarmManager.RTC_WAKEUP, epochMilli, pendingIntent);
